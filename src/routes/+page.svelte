@@ -46,10 +46,15 @@
 		font-family: 'Courier New', Consolas, monospace;
 	}
 	.timer {
-		font-size: 8rem;
+		font-size: 15vw;
 		margin: 10px;
 		display: flex;
 		justify-content: center;
+	}
+	@media screen and (min-width: 640px) {
+		.timer {
+			font-size: 8rem;
+		}
 	}
 	.buttons {
 		display: flex;
