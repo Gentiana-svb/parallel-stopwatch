@@ -4,6 +4,7 @@
 	import Csv from '$lib/buttons/Csv.svelte'
 	import Delete from '$lib/buttons/Delete.svelte'
 	import Lap from '$lib/buttons/Lap.svelte'
+	import ExportAsCsv from '$lib/layouts/ExportAsCsv.svelte'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 	import { safeLocalStorage } from '$lib/utils/safeLocalStorage'
 
@@ -52,7 +53,7 @@
 <div
 	class="grid grid-cols-[repeat(1,auto)] sm:grid-cols-[repeat(2,auto)] place-items-center sm:justify-start w-[90vw] gap-3"
 >
-	<Csv
+	<ExportAsCsv
 		header={records.map(x => x.name)}
 		body={[...Array(maxLap)].map((_, index) =>
 			records.map(x => makeTimeString(x.laps[index], { hideZero: true }))

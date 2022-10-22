@@ -1,14 +1,9 @@
 <script lang="ts">
-	import { makeCsvDataURL } from '$lib/utils/makeCsvDataURL'
-
-	export let header: string[]
-	export let body: string[][]
+	export let onClick: () => unknown
 	export let Class = ''
-
-	$: href = makeCsvDataURL(body, header)
 </script>
 
-<a {href} download="data.csv" class="flex items-center {Class} select-none">
+<button on:click={onClick} class="flex items-center {Class} select-none">
 	<svg viewBox="0 0 548.29 548.291" class="w-8 mr-2">
 		<g>
 			<path
@@ -33,4 +28,4 @@
 		</g>
 	</svg>
 	Export as CSV
-</a>
+</button>
