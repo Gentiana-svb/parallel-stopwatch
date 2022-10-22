@@ -5,6 +5,7 @@
 	import Delete from '$lib/buttons/Delete.svelte'
 	import Lap from '$lib/buttons/Lap.svelte'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
+	import { safeLocalStorage } from '$lib/utils/safeLocalStorage'
 
 	type RecordT = {
 		name: string
@@ -14,18 +15,22 @@
 	export let time: number
 	export let counting: boolean
 
-	const recoverdNames = browser
-		? localStorage.getItem('names')?.split(',') ?? null
-		: undefined
+	const parse = <T>(str: string | null): T | null => {
+		if (!str) return null
+		try {
+			return JSON.parse(str)
+		} catch {
+			return null
+		}
+	}
 
-	const namesIsValid = recoverdNames?.filter(name => name.length > 0).length
+	const recoverdRecordsStr = safeLocalStorage.get('records')
+	const recoverdRecords =
+		recoverdRecordsStr !== undefined
+			? parse<RecordT[]>(recoverdRecordsStr)
+			: undefined
 
-	let records: RecordT[] = (namesIsValid ? recoverdNames : ['Record 1']).map(
-		x => ({
-			name: x,
-			laps: []
-		})
-	)
+	let records: RecordT[] = recoverdRecords ?? [{ name: 'Record 1', laps: [] }]
 
 	const addRecord = () =>
 		(records = [
@@ -38,8 +43,8 @@
 
 	$: if (time === 0) records = records.map(x => ({ ...x, laps: [] }))
 
-	$: if (browser && recoverdNames !== undefined)
-		localStorage.setItem('names', records.map(x => x.name).join(','))
+	$: if (recoverdRecords !== undefined)
+		safeLocalStorage.set('records', JSON.stringify(records))
 
 	$: maxLap = records.length ? Math.max(...records.map(x => x.laps.length)) : 0
 </script>

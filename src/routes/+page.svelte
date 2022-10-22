@@ -4,11 +4,12 @@
 	import Stop from '$lib/buttons/Stop.svelte'
 	import Records from '$lib/layouts/Records.svelte'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
+	import { safeLocalStorage } from '$lib/utils/safeLocalStorage'
 	import '../app.css'
 
 	let startTime = 0
 	let diffTime = 0
-	let allTime = 0
+	let allTime = Number(safeLocalStorage.get('allTime')) ?? 0
 	let counting = false
 
 	$: time = allTime + diffTime
@@ -22,11 +23,13 @@
 
 	const resetCount = () => {
 		allTime = 0
+		safeLocalStorage.set('allTime', '0')
 		counting = false
 	}
 
 	const stopCount = () => {
 		allTime += now() - startTime
+		safeLocalStorage.set('allTime', allTime.toString())
 		diffTime = 0
 		counting = false
 	}
