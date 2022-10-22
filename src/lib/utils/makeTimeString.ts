@@ -1,4 +1,4 @@
-import { ignoreNaN } from '$lib/utils/ignoreNaN'
+const ignoreNaN = (x: number) => (isNaN(x) ? 0 : x)
 
 const format2digits = (num: number) =>
 	ignoreNaN(Math.floor(num)).toString().padStart(2, '0')
@@ -11,6 +11,7 @@ export const makeTimeString = (
 	}
 ) => {
 	const t = ignoreNaN(time)
+
 	return !options?.hideZero || t !== 0
 		? `${
 				t > 360000 ? `${ignoreNaN(Math.floor(t / 360000)).toString()}:` : ''

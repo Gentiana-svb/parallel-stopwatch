@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
 	import Add from '$lib/buttons/Add.svelte'
 	import Csv from '$lib/buttons/Csv.svelte'
 	import Delete from '$lib/buttons/Delete.svelte'
 	import Lap from '$lib/buttons/Lap.svelte'
-	import { ignoreNaN } from '$lib/utils/ignoreNaN'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 
 	type RecordT = {
@@ -14,16 +14,14 @@
 	export let time: number
 	export let counting: boolean
 
-	let records: RecordT[] = [
-		{
-			name: 'Record 1',
-			laps: []
-		}
-	]
+	const recoverdNames = browser
+		? localStorage.getItem('names')?.split(',')
+		: undefined
 
-	$: if (time === 0) {
-		records = records.map(x => ({ ...x, laps: [] }))
-	}
+	let records: RecordT[] = (recoverdNames ?? ['Record 1']).map(x => ({
+		name: x,
+		laps: []
+	}))
 
 	const addRecord = () =>
 		(records = [
@@ -34,7 +32,12 @@
 			...records
 		])
 
-	$: maxLap = ignoreNaN(Math.max(...records.map(x => x.laps.length)))
+	$: if (time === 0) records = records.map(x => ({ ...x, laps: [] }))
+
+	$: if (browser && recoverdNames !== undefined)
+		localStorage.setItem('names', records.map(x => x.name).join(','))
+
+	$: maxLap = records.length ? Math.max(...records.map(x => x.laps.length)) : 0
 </script>
 
 <div
@@ -59,7 +62,7 @@
 			<label>
 				<input
 					bind:value={record.name}
-					class="outline-none border-b focus:border-b-2 border-black text-2xl w-48"
+					class="outline-none border-b focus:border-b-2 border-black text-2xl w-48 rounded-none"
 				/>
 			</label>
 			<div class="w-10 mx-5">
