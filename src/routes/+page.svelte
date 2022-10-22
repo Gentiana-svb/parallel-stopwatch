@@ -17,7 +17,9 @@
 </script>
 
 <svelte:head>
-	<title>{makeTimeString(time, false)} - Parallel Stopwatch</title>
+	<title>
+		{makeTimeString(time, { hideMilliSec: true })} - Parallel Stopwatch</title
+	>
 </svelte:head>
 
 <div class="text-7xl sm:text-9xl flex justify-center m-10">
