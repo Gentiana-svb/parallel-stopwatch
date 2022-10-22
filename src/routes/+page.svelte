@@ -3,14 +3,22 @@
 	import Start from '$lib/buttons/Start.svelte'
 	import Stop from '$lib/buttons/Stop.svelte'
 	import Records from '$lib/layouts/Records.svelte'
+	import { worker } from '$lib/utils/worker'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 	import '../app.css'
 
 	let time = 0
 	let counting = false
 
-	setInterval(() => (counting ? time++ : null), 10)
+	worker(
+		post => setInterval(() => post(''), 10),
+		_ => (counting ? time++ : null)
+	)
 </script>
+
+<svelte:head>
+	<title>{makeTimeString(time, false)} - Parallel Stopwatch</title>
+</svelte:head>
 
 <div class="text-7xl sm:text-9xl flex justify-center m-10">
 	{makeTimeString(time)}
