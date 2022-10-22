@@ -4,6 +4,7 @@
 	import Lap from '$lib/buttons/Lap.svelte'
 	import ExportAsCsv from '$lib/layouts/ExportAsCsv.svelte'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
+	import { parse } from '$lib/utils/parse'
 	import { safeLocalStorage } from '$lib/utils/safeLocalStorage'
 
 	type RecordT = {
@@ -13,15 +14,6 @@
 
 	export let time: number
 	export let counting: boolean
-
-	const parse = <T>(str: string | null): T | null => {
-		if (!str) return null
-		try {
-			return JSON.parse(str)
-		} catch {
-			return null
-		}
-	}
 
 	const recoverdRecordsStr = safeLocalStorage.get('records')
 	const recoverdRecords =
