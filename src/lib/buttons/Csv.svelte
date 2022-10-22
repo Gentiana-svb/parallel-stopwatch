@@ -8,7 +8,7 @@
 	$: href = makeCsvDataURL(body, header)
 </script>
 
-<a {href} download="data.csv" class="flex items-center {Class}">
+<a {href} download="data.csv" class="flex items-center {Class} select-none">
 	<svg viewBox="0 0 548.29 548.291" class="w-8 mr-2">
 		<g>
 			<path
