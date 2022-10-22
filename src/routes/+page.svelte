@@ -3,17 +3,35 @@
 	import Start from '$lib/buttons/Start.svelte'
 	import Stop from '$lib/buttons/Stop.svelte'
 	import Records from '$lib/layouts/Records.svelte'
-	import { worker } from '$lib/utils/worker'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 	import '../app.css'
 
-	let time = 0
+	let startTime = 0
+	let diffTime = 0
+	let allTime = 0
 	let counting = false
 
-	worker(
-		post => setInterval(() => post(''), 10),
-		_ => (counting ? time++ : null)
-	)
+	$: time = allTime + diffTime
+
+	const now = () => new Date().getTime()
+
+	const startCount = () => {
+		startTime = now()
+		counting = true
+	}
+
+	const resetCount = () => {
+		allTime = 0
+		counting = false
+	}
+
+	const stopCount = () => {
+		allTime += now() - startTime
+		diffTime = 0
+		counting = false
+	}
+
+	setInterval(() => (counting ? (diffTime = now() - startTime) : null), 33)
 </script>
 
 <svelte:head>
@@ -27,11 +45,11 @@
 </div>
 <div class="flex justify-center">
 	{#if counting}
-		<Stop onClick={() => (counting = !counting)} Class="w-24 mx-5" />
+		<Stop onClick={stopCount} Class="w-24 mx-5" />
 	{:else}
-		<Start onClick={() => (counting = !counting)} Class="w-24 mx-5" />
+		<Start onClick={startCount} Class="w-24 mx-5" />
 		{#if time}
-			<Reset onClick={() => (time = 0)} Class="w-16 mx-5" />
+			<Reset onClick={resetCount} Class="w-16 mx-5" />
 		{/if}
 	{/if}
 </div>

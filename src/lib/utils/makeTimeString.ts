@@ -14,9 +14,9 @@ export const makeTimeString = (
 
 	return !options?.hideZero || t !== 0
 		? `${
-				t > 360000 ? `${ignoreNaN(Math.floor(t / 360000)).toString()}:` : ''
-		  }${format2digits((t / 6000) % 60)}:${format2digits((t / 100) % 60)}${
-				options?.hideMilliSec ? '' : `.${format2digits(t % 100)}`
+				t > 3600000 ? `${ignoreNaN(Math.floor(t / 3600000)).toString()}:` : ''
+		  }${format2digits((t / 60000) % 60)}:${format2digits((t / 1000) % 60)}${
+				options?.hideMilliSec ? '' : `.${format2digits((t / 10) % 100)}`
 		  }`
 		: ''
 }
