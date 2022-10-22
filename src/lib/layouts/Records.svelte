@@ -34,11 +34,11 @@
 
 	const addRecord = () =>
 		(records = [
+			...records,
 			{
 				name: `Record ${records.length + 1}`,
 				laps: []
-			},
-			...records
+			}
 		])
 
 	$: if (time === 0) records = records.map(x => ({ ...x, laps: [] }))
@@ -50,19 +50,18 @@
 </script>
 
 <div
-	class="grid grid-cols-[repeat(1,auto)] sm:grid-cols-[repeat(2,auto)] place-items-center sm:justify-start w-[90vw]"
+	class="grid grid-cols-[repeat(1,auto)] sm:grid-cols-[repeat(2,auto)] place-items-center sm:justify-start w-[90vw] gap-3"
 >
-	<Add onClick={addRecord} Class="w-10 my-5" />
 	<Csv
 		header={records.map(x => x.name)}
 		body={[...Array(maxLap)].map((_, index) =>
 			records.map(x => makeTimeString(x.laps[index], { hideZero: true }))
 		)}
-		Class="sm:justify-self-start"
 	/>
+	<div />
 	{#each records as record, index}
 		{@const laps = record.laps}
-		<div class="flex items-center m-5">
+		<div class="flex items-center">
 			<Delete
 				onClick={() =>
 					(records = [...records.slice(0, index), ...records.slice(index + 1)])}
@@ -77,13 +76,15 @@
 			<div class="w-10 mx-5">
 				{#if counting}
 					<Lap
-						onClick={() => (record.laps = [time, ...record.laps])}
+						onClick={() => (record.laps = [...record.laps, time])}
 						Class=""
 					/>
 				{/if}
 			</div>
 		</div>
-		<div class="flex sm:justify-self-start overflow-x-auto">
+		<div
+			class="flex flex-col sm:flex-row sm:justify-self-start overflow-x-auto"
+		>
 			{#each laps as lap}
 				<div Class="mr-10 text-2xl">
 					{makeTimeString(lap)}
@@ -91,4 +92,6 @@
 			{/each}
 		</div>
 	{/each}
+	<Add onClick={addRecord} Class="w-10 my-5" />
+	<div />
 </div>
