@@ -15,13 +15,17 @@
 	export let counting: boolean
 
 	const recoverdNames = browser
-		? localStorage.getItem('names')?.split(',')
+		? localStorage.getItem('names')?.split(',') ?? null
 		: undefined
 
-	let records: RecordT[] = (recoverdNames ?? ['Record 1']).map(x => ({
-		name: x,
-		laps: []
-	}))
+	const namesIsValid = recoverdNames?.filter(name => name.length > 0).length
+
+	let records: RecordT[] = (namesIsValid ? recoverdNames : ['Record 1']).map(
+		x => ({
+			name: x,
+			laps: []
+		})
+	)
 
 	const addRecord = () =>
 		(records = [
