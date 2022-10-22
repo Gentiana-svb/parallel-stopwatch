@@ -1,8 +1,14 @@
 <script lang="ts">
 	export let onClick: () => unknown
+	export let Class = ''
 </script>
 
-<svg viewBox="0 0 482.827 482.827" on:click={onClick} on:keydown={onClick}>
+<svg
+	viewBox="0 0 482.827 482.827"
+	on:click={onClick}
+	on:keydown={onClick}
+	class="cursor-pointer {Class}"
+>
 	<g>
 		<path
 			stroke="none"
@@ -14,11 +20,3 @@
 		/>
 	</g>
 </svg>
-
-<style>
-	svg {
-		cursor: pointer;
-		margin: 20px;
-		width: 100px;
-	}
-</style>

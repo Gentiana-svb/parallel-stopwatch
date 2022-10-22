@@ -1,63 +1,36 @@
 <script lang="ts">
-	import Reset from '$lib/svg/Reset.svelte'
-	import Start from '$lib/svg/Start.svelte'
-	import Stop from '$lib/svg/Stop.svelte'
+	import Add from '$lib/buttons/Add.svelte'
+	import Delete from '$lib/buttons/Delete.svelte'
+	import Lap from '$lib/buttons/Lap.svelte'
+	import Reset from '$lib/buttons/Reset.svelte'
+	import Start from '$lib/buttons/Start.svelte'
+	import Stop from '$lib/buttons/Stop.svelte'
+	import Records from '$lib/layouts/Records.svelte'
+	import Time from '$lib/layouts/Time.svelte'
+	import '../app.css'
 
 	let time = 0
 	let timer: NodeJS.Timer | undefined
 
-	const setTimer = () =>
-		(timer = setInterval(() => {
-			time += 1
-		}, 10))
+	const setTimer = () => (timer = setInterval(() => time++, 10))
 
 	const stopTimer = () => {
 		clearInterval(timer)
 		timer = undefined
 	}
+
 	const resetTimer = () => (time = 0)
-
-	const format2digits = (num: number) =>
-		Math.floor(num).toString().padStart(2, '0')
-
-	$: timeStr = `${
-		time > 36000 ? `${Math.floor(time / 36000).toString()}:` : ''
-	}${format2digits(time / 6000)}:${format2digits(
-		(time / 100) % 60
-	)}:${format2digits(time % 100)}`
 </script>
 
-<div class="timer">
-	{timeStr}
-</div>
-<div class="buttons">
+<Time {time} Class="text-9xl flex justify-center m-10" />
+<div class="flex justify-center">
 	{#if timer}
-		<Stop onClick={stopTimer} />
+		<Stop onClick={stopTimer} Class="w-24 mx-5" />
 	{:else}
-		<Start onClick={setTimer} />
+		<Start onClick={setTimer} Class="w-24 mx-5" />
 		{#if time}
-			<Reset onClick={resetTimer} />
+			<Reset onClick={resetTimer} Class="w-16 mx-5" />
 		{/if}
 	{/if}
 </div>
-
-<style>
-	:global(body) {
-		font-family: 'Courier New', Consolas, monospace;
-	}
-	.timer {
-		font-size: 15vw;
-		margin: 10px;
-		display: flex;
-		justify-content: center;
-	}
-	@media screen and (min-width: 640px) {
-		.timer {
-			font-size: 8rem;
-		}
-	}
-	.buttons {
-		display: flex;
-		justify-content: center;
-	}
-</style>
+<Records {time} {timer} />
