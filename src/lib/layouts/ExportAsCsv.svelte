@@ -2,7 +2,6 @@
 	import Csv from '$lib/buttons/Csv.svelte'
 	import Modal from '$lib/compoents/Modal.svelte'
 	import { makeCsvDataURL } from '$lib/utils/makeCsvDataURL'
-	import { onMount } from 'svelte'
 
 	export let header: string[]
 	export let body: string[][]

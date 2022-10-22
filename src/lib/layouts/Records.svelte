@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/environment'
 	import Add from '$lib/buttons/Add.svelte'
-	import Csv from '$lib/buttons/Csv.svelte'
 	import Delete from '$lib/buttons/Delete.svelte'
 	import Lap from '$lib/buttons/Lap.svelte'
 	import ExportAsCsv from '$lib/layouts/ExportAsCsv.svelte'
