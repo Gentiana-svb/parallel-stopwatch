@@ -55,6 +55,7 @@
 	</title>
 	<link rel="icon" href={dark ? darkPng : lightPng} />
 	<link rel="icon" href={dark ? darkSvg : lightSvg} type="image/svg+xml" />
+	<link rel="apple-touch-icon" href={dark ? darkApple : lightApple} />
 </svelte:head>
 
 <div class="flex items-center justify-end m-3">
