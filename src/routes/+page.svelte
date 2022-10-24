@@ -6,6 +6,14 @@
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 	import { safeLocalStorage } from '$lib/utils/safeLocalStorage'
 	import '../app.css'
+	import darkPng from '$lib/assets/favicon/dark.png'
+	import lightPng from '$lib/assets/favicon/light.png'
+	import darkSvg from '$lib/assets/favicon/dark.svg'
+	import lightSvg from '$lib/assets/favicon/light.svg'
+	import { theme } from 'svelte-dark-theme'
+	import Moon from '$lib/buttons/Moon.svelte'
+	import Sun from '$lib/buttons/Sun.svelte'
+	import System from '$lib/buttons/System.svelte'
 
 	let startTime = 0
 	let diffTime = 0
@@ -35,14 +43,34 @@
 	}
 
 	setInterval(() => (counting ? (diffTime = now() - startTime) : null), 33)
+
+	$: dark = $theme.isDark
 </script>
 
 <svelte:head>
 	<title>
-		{makeTimeString(time, { hideMilliSec: true })} - Parallel Stopwatch</title
-	>
+		{makeTimeString(time, { hideMilliSec: true })} - Parallel Stopwatch
+	</title>
+	<link rel="icon" href={dark ? darkPng : lightPng} />
+	<link rel="icon" href={dark ? darkSvg : lightSvg} type="image/svg+xml" />
 </svelte:head>
 
+<div class="flex items-center justify-end m-3">
+	{#if $theme.isDark}
+		<Sun Class="w-8" onClick={() => theme.change('light')} />
+	{:else}
+		<Moon Class="w-8" onClick={() => theme.change('dark')} />
+	{/if}
+	<label>
+		<input
+			type="checkbox"
+			class="scale-150 ml-5"
+			checked={$theme.setting === 'sync'}
+			on:click={() => theme.change('sync')}
+		/>
+		System default
+	</label>
+</div>
 <div class="text-7xl sm:text-9xl flex justify-center m-10">
 	{makeTimeString(time)}
 </div>

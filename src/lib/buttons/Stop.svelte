@@ -15,7 +15,6 @@
 			y="1235"
 			width="306"
 			height="306"
-			stroke="#000000"
 			stroke-width="15"
 			stroke-miterlimit="8"
 			fill="none"

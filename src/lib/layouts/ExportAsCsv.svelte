@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Csv from '$lib/buttons/Csv.svelte'
+	import InputText from '$lib/compoents/InputText.svelte'
 	import Modal from '$lib/compoents/Modal.svelte'
 	import { makeCsvDataURL } from '$lib/utils/makeCsvDataURL'
+	import { Input } from 'postcss'
 
 	export let header: string[]
 	export let body: string[][]
@@ -33,16 +35,19 @@
 />
 {#if seen}
 	<Modal onClick={() => (seen = false)}>
-		<div class="flex rounded p-5 flex-col bg-white">
-			<label>
-				<input
-					bind:this={input}
+		<div class="flex rounded p-5 flex-col bg-white dark:bg-zinc-700">
+			<span>
+				<InputText
+					bind:dom={input}
 					bind:value={filename}
-					class="outline-none border-b focus:border-b-2 border-black text-2xl w-[50vw] sm:w-96 my-5 rounded-none"
+					Class="w-[50vw] sm:w-96 my-5"
 				/>
 				.csv
-			</label>
-			<button on:click={download} class="border rounded p-2 m-5 border-black">
+			</span>
+			<button
+				on:click={download}
+				class="border rounded p-2 m-5 border-black dark:border-slate-200"
+			>
 				Export
 			</button>
 		</div>

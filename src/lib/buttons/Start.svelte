@@ -12,7 +12,6 @@
 	<g transform="translate(-2499 -464)">
 		<path
 			d="M2706 600 3036 791.5 2706 983Z"
-			stroke="#000000"
 			stroke-width="15"
 			stroke-miterlimit="8"
 			fill="none"

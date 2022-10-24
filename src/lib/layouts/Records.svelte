@@ -2,6 +2,7 @@
 	import Add from '$lib/buttons/Add.svelte'
 	import Delete from '$lib/buttons/Delete.svelte'
 	import Lap from '$lib/buttons/Lap.svelte'
+	import InputText from '$lib/compoents/InputText.svelte'
 	import ExportAsCsv from '$lib/layouts/ExportAsCsv.svelte'
 	import { makeTimeString } from '$lib/utils/makeTimeString'
 	import { parse } from '$lib/utils/parse'
@@ -58,12 +59,7 @@
 					(records = [...records.slice(0, index), ...records.slice(index + 1)])}
 				Class="w-7 m-3"
 			/>
-			<label>
-				<input
-					bind:value={record.name}
-					class="outline-none border-b focus:border-b-2 border-black text-2xl w-48 rounded-none"
-				/>
-			</label>
+			<InputText bind:value={record.name} Class="w-48" />
 			<div class="w-10 mx-5">
 				{#if counting}
 					<Lap

@@ -18,7 +18,7 @@
 	on:keydown|stopPropagation={onClick}
 >
 	<div
-		Class="p-2 m-10 bg-sub-bg z-[100] rounded-sm"
+		Class="p-2 m-10 z-[100] rounded-sm"
 		on:mouseup|stopPropagation
 		on:keydown|stopPropagation
 	>
