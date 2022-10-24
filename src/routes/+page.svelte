@@ -16,6 +16,7 @@
 	import darkApple from '$lib/assets/apple-touch-icon/dark.png'
 	import lightApple from '$lib/assets/apple-touch-icon/light.png'
 	import System from '$lib/buttons/System.svelte'
+	import { page } from '$app/stores'
 
 	let startTime = 0
 	let diffTime = 0
@@ -56,6 +57,7 @@
 	<link rel="icon" href={dark ? darkPng : lightPng} />
 	<link rel="icon" href={dark ? darkSvg : lightSvg} type="image/svg+xml" />
 	<link rel="apple-touch-icon" href={dark ? darkApple : lightApple} />
+	<meta property="og:url" content={$page.url.href} />
 </svelte:head>
 
 <div class="flex items-center justify-end m-3">
