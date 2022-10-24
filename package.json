@@ -12,8 +12,8 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^1.0.0-next.45",
-		"@sveltejs/kit": "^1.0.0-next.517",
+		"@sveltejs/adapter-static": "^1.0.0-next.46",
+		"@sveltejs/kit": "^1.0.0-next.522",
 		"@types/body-scroll-lock": "^3.1.0",
 		"autoprefixer": "^10.4.12",
 		"body-scroll-lock": "^4.0.0-beta.0",
