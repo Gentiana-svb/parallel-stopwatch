@@ -3,7 +3,6 @@
 	import InputText from '$lib/compoents/InputText.svelte'
 	import Modal from '$lib/compoents/Modal.svelte'
 	import { makeCsvDataURL } from '$lib/utils/makeCsvDataURL'
-	import { Input } from 'postcss'
 
 	export let header: string[]
 	export let body: string[][]
