@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let onClick: () => unknown
+	export let onClick: () => unknown = () => {}
 	export let Class = ''
 </script>
 
@@ -7,7 +7,7 @@
 	viewBox="0 0 100 100"
 	on:click={onClick}
 	on:keydown={onClick}
-	class="cursor-pointer {Class}"
+	class={Class}
 >
 	<g>
 		<path

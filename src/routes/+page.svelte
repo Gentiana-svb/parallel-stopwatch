@@ -13,6 +13,8 @@
 	import { theme } from 'svelte-dark-theme'
 	import Moon from '$lib/buttons/Moon.svelte'
 	import Sun from '$lib/buttons/Sun.svelte'
+	import darkApple from '$lib/assets/apple-touch-icon/dark.png'
+	import lightApple from '$lib/assets/apple-touch-icon/light.png'
 	import System from '$lib/buttons/System.svelte'
 
 	let startTime = 0
@@ -61,13 +63,14 @@
 	{:else}
 		<Moon Class="w-8" onClick={() => theme.change('dark')} />
 	{/if}
-	<label>
+	<label class="flex items-center">
 		<input
 			type="checkbox"
 			class="scale-150 ml-5"
 			checked={$theme.setting === 'sync'}
 			on:click={() => theme.change('sync')}
 		/>
+		<System Class="w-5 ml-3 mr-2" />
 		System default
 	</label>
 </div>
