@@ -1,3 +1,3 @@
 # parallel-stopwatch
 
-Named parallel lappable stopwatch. csv output is available.
+Parallel lappable stopwatch. csv output is available.
